@@ -1,0 +1,39 @@
+{
+  "name": "Immigrant Series Auto-Publish",
+  "trigger": {
+    "type": "scheduler",
+    "interval": "daily"
+  },
+  "steps": [
+    {
+      "type": "iterator",
+      "source": "/immigrant-series/exports"
+    },
+    {
+      "type": "router",
+      "routes": [
+        {
+          "platform": "tiktok",
+          "action": "upload_video",
+          "caption_map": "filename",
+          "hashtags": ["HistoryFacts","Immigration","AmericanHistory"]
+        },
+        {
+          "platform": "instagram",
+          "action": "upload_reel",
+          "first_comment": "Labor built America. Law decided who benefited."
+        },
+        {
+          "platform": "youtube_shorts",
+          "action": "upload_short"
+        },
+        {
+          "platform": "youtube_long",
+          "condition": "filename.startsWith('LF')",
+          "action": "schedule_public",
+          "description": "Full breakdown of American labor history."
+        }
+      ]
+    }
+  ]
+}
